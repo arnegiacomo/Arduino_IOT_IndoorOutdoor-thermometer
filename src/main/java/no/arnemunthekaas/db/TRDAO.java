@@ -1,6 +1,7 @@
 package no.arnemunthekaas.db;
 
 import javax.persistence.*;
+import java.util.List;
 
 public class TRDAO {
 
@@ -29,6 +30,27 @@ public class TRDAO {
         } finally {
             em.close();
         }
+    }
+
+    /**
+     * Gets most recent temperature reading
+     *
+     * @return Last temperature reading
+     */
+    public TemperatureReading selectTemperatureReading() {
+        String queryString = "SELECT t FROM TemperatureReading t ";
+        EntityManager em = emf.createEntityManager();
+
+        List<TemperatureReading> trs = null;
+        try {
+            TypedQuery<TemperatureReading> query = em.createQuery(queryString, TemperatureReading.class);
+            trs = query.getResultList();
+
+        } finally {
+            em.close();
+        }
+
+        return trs.get(trs.size()-1);
     }
 
     /**

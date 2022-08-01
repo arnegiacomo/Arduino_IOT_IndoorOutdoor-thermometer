@@ -39,6 +39,20 @@ public class Main {
             return str;
         });
 
+        // Get most recent temperature reading
+        get("/temperaturelogger/", (req, res) -> {
+
+            Gson gson = new Gson();
+
+            TemperatureReading tr = temperatureReadingDAO.selectTemperatureReading();
+
+            String str = gson.toJson(tr);
+
+            System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully retrieved item : " + tr.getID());
+
+            return str;
+        });
+
         // Submit a temperature reading
         put("/temperaturelogger/log/", (req, res) -> {
 

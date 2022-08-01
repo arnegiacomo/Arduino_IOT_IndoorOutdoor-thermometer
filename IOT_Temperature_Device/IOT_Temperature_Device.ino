@@ -27,8 +27,7 @@ char ssid[] = ""; //network SSID (aka WiFi name)
 char pass[] = ""; //network password
 int status = WL_IDLE_STATUS;
 
-//"192.168.50.179:8080"
-IPAddress server(192,168,50,179); 
+IPAddress server(000,000,00,000);
 WiFiClient client;
 
 void setup() {

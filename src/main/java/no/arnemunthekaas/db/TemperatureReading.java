@@ -1,21 +1,19 @@
 package no.arnemunthekaas.db;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.Instant;
 
 @Entity
+@Table(name = "TemperatureReading", schema = "temperaturedb")
 public class TemperatureReading {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
-    private Timestamp timestamp;
-    private float indoorTemp;
-    private float outdoorTemp;
+    private Timestamp TIME_STAMP;
+    private float INDOORTEMP;
+    private float OUTDOORTEMP;
 
     /**
      * Empty constructor - Do not use this
@@ -30,10 +28,10 @@ public class TemperatureReading {
      * @param outdoorTemp Outdoor temperature in celsius
      */
     public TemperatureReading (float indoorTemp, float outdoorTemp) {
-        this.indoorTemp = indoorTemp;
-        this.outdoorTemp = outdoorTemp;
+        this.INDOORTEMP = indoorTemp;
+        this.OUTDOORTEMP = outdoorTemp;
 
-        this.timestamp = Timestamp.from(Instant.now());
+        this.TIME_STAMP = Timestamp.from(Instant.now());
     }
 
     /**
@@ -46,10 +44,10 @@ public class TemperatureReading {
      * @param seconds Seconds since 1/1/1970
      **/
     public TemperatureReading (float indoorTemp, float outdoorTemp, int seconds) {
-        this.indoorTemp = indoorTemp;
-        this.outdoorTemp = outdoorTemp;
+        this.INDOORTEMP = indoorTemp;
+        this.OUTDOORTEMP = outdoorTemp;
 
         // Convert seconds to ms
-        this.timestamp = new Timestamp((long) seconds * 1000);
+        this.TIME_STAMP = new Timestamp((long) seconds * 1000);
     }
 }

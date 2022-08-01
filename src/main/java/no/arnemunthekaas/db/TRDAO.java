@@ -1,19 +1,17 @@
 package no.arnemunthekaas.db;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 
 public class TRDAO {
 
+    @PersistenceContext(name = "tempDB")
     private final EntityManagerFactory emf;
 
     /**
      * Constructs a Temperature reading data access object to insert/select entries from temperature database
      */
     public TRDAO() {
-        emf = Persistence.createEntityManagerFactory("");
+        emf = Persistence.createEntityManagerFactory("tempDB");
     }
 
     /**
@@ -54,4 +52,6 @@ public class TRDAO {
             em.close();
         }
     }
+
+
 }

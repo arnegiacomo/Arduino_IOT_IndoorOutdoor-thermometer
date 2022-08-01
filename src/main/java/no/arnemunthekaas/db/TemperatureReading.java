@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.time.Instant;
 
-
 @Entity
 public class TemperatureReading {
 
@@ -18,13 +17,17 @@ public class TemperatureReading {
     private float indoorTemp;
     private float outdoorTemp;
 
+    /**
+     * Empty constructor - Do not use this
+     * @Deprecated
+     */
     public TemperatureReading () {};
 
     /**
      * For use without timestamp (gets current timestamp from system time)
      *
-     * @param indoorTemp
-     * @param outdoorTemp
+     * @param indoorTemp Indoor temperature in celsius
+     * @param outdoorTemp Outdoor temperature in celsius
      */
     public TemperatureReading (float indoorTemp, float outdoorTemp) {
         this.indoorTemp = indoorTemp;
@@ -38,9 +41,9 @@ public class TemperatureReading {
      *
      * See https://playground.arduino.cc/Code/DateTime/ and https://www.postgresql.org/docs/current/datatype-datetime.html#DATATYPE-DATETIME-INPUT
      *
-     * @param indoorTemp
-     * @param outdoorTemp
-     * @param seconds
+     * @param indoorTemp Indoor temperature in celsius
+     * @param outdoorTemp Outdoor temperature in celsius
+     * @param seconds Seconds since 1/1/1970
      **/
     public TemperatureReading (float indoorTemp, float outdoorTemp, int seconds) {
         this.indoorTemp = indoorTemp;

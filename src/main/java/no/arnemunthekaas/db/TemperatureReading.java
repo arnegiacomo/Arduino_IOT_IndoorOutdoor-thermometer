@@ -37,7 +37,7 @@ public class TemperatureReading {
     /**
      * For use with timestamp
      *
-     * See https://playground.arduino.cc/Code/DateTime/ and https://www.postgresql.org/docs/current/datatype-datetime.html#DATATYPE-DATETIME-INPUT
+     * See https://playground.arduino.cc/Code/Time/ and https://www.postgresql.org/docs/current/datatype-datetime.html#DATATYPE-DATETIME-INPUT
      *
      * @param indoorTemp Indoor temperature in celsius
      * @param outdoorTemp Outdoor temperature in celsius
@@ -50,4 +50,23 @@ public class TemperatureReading {
         // Convert seconds to ms
         this.TIME_STAMP = new Timestamp((long) seconds * 1000);
     }
+
+    // GETTERS
+
+    public int getID() {
+        return ID;
+    }
+
+    public Timestamp getTIME_STAMP() {
+        return TIME_STAMP;
+    }
+
+    public float getINDOORTEMP() {
+        return INDOORTEMP;
+    }
+
+    public float getOUTDOORTEMP() {
+        return OUTDOORTEMP;
+    }
+
 }

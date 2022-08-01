@@ -40,15 +40,14 @@ public class Main {
         });
 
         // Submit a temperature reading
-        put("/temperaturelogger/log", (req, res) -> {
+        put("/temperaturelogger/log/", (req, res) -> {
 
             Gson gson = new Gson();
 
-            int indoorTemp = Integer.parseInt(req.queryParams("indoorTemp"));
-            int outdoorTemp = Integer.parseInt(req.queryParams("outdoorTemp"));
-            int seconds = Integer.parseInt(req.queryParams("seconds"));
+            float indoorTemp = Float.parseFloat(req.queryParams("indoorTemp"));
+            float outdoorTemp = Float.parseFloat(req.queryParams("outdoorTemp"));
 
-            TemperatureReading tr = new TemperatureReading(indoorTemp, outdoorTemp, seconds);
+            TemperatureReading tr = new TemperatureReading(indoorTemp, outdoorTemp);
             temperatureReadingDAO.insertTemperatureReading(tr);
 
             String str = gson.toJson(tr);

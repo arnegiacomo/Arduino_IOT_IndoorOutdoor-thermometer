@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import no.arnemunthekaas.db.TRDAO;
 import no.arnemunthekaas.db.TemperatureReading;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.put;
@@ -22,12 +25,18 @@ public class Main {
         TRDAO temperatureReadingDAO = new TRDAO();
 
         // Get a temperature reading given an ID
-        get("/temperaturelogger/log/:id", (req, res) -> {
+        get("/temperaturelogger/log/", (req, res) -> {
 
             Gson gson = new Gson();
-            String id = req.params(":id");
+            String id = req.queryParams("id");
 
-            return gson.toJson(temperatureReadingDAO.selectTemperatureReading(Integer.parseInt(id)));
+            TemperatureReading tr = temperatureReadingDAO.selectTemperatureReading(Integer.parseInt(id));
+
+            String str = gson.toJson(tr);
+
+            System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully retrieved item : " + id);
+
+            return str;
         });
 
         // Submit a temperature reading
@@ -42,7 +51,13 @@ public class Main {
             TemperatureReading tr = new TemperatureReading(indoorTemp, outdoorTemp, seconds);
             temperatureReadingDAO.insertTemperatureReading(tr);
 
-            return gson.toJson(temperatureReadingDAO.selectTemperatureReading(tr.getID())) + " \n Has been succsessfully added to the database!";
+            String str = gson.toJson(tr);
+
+            if (temperatureReadingDAO.selectTemperatureReading(tr.getID()) != null) {
+                System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully added item : " + tr.getID());
+            }
+
+            return str + " \nHas been succsessfully added to the database!";
         });
     }
 }

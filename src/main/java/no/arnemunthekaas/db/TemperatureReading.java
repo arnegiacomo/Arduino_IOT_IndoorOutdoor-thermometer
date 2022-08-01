@@ -21,7 +21,7 @@ public class TemperatureReading {
      * Empty constructor - Do not use this
      * @Deprecated
      */
-    public TemperatureReading () {};
+    public TemperatureReading () {}
 
     /**
      * For use without timestamp (gets current timestamp from system time)

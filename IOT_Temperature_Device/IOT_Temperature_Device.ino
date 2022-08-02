@@ -4,9 +4,7 @@
 #include <WiFi101.h>
 #include <WiFiClient.h>
 
-using namespace std;
-
-// Data wire is plugged into digital pin 6 on the Arduino
+// Data wire for temperature sensors is plugged into digital pin 6 on the Arduino
 #define ONE_WIRE_BUS 6
 
 // Setup a oneWire instance to communicate with any OneWire device
@@ -15,25 +13,32 @@ OneWire oneWire(ONE_WIRE_BUS);
 // Pass oneWire reference to DallasTemperature library
 DallasTemperature sensors(&oneWire);
 
-int deviceCount = 0;
-float tempC;
+int deviceCount = 0;// Amount of temperature sensors
 
-const int GREENLED = 0;
-const int BLUELED = 1;
-const int REDLED = 2;
+const int DELAY = 60000; // how long to wait for each iteration of loop()
 
-//WiFi router setup
-char ssid[] = ""; //network SSID (aka WiFi name)
-char pass[] = ""; //network password
+// LED pins
+const int G = 0;
+const int B = 1;
+const int R = 2;
+
+// WiFi router setup
+char ssid[] = ""; // network SSID (aka WiFi name)
+char pass[] = ""; // network password
 int status = WL_IDLE_STATUS;
 
-IPAddress server(000,000,00,000);
+String fullAddress = ""; // ip and port
+IPAddress server();      // ip seperated by ","
+const int port = ;
 WiFiClient client;
 
 void setup() {
-  pinMode(GREENLED, OUTPUT);
-  pinMode(REDLED, OUTPUT);
-  pinMode(BLUELED, OUTPUT);
+  // RGB LED
+  pinMode(G, OUTPUT);
+  pinMode(R, OUTPUT);
+  pinMode(B, OUTPUT);
+
+  rgb(255,0,0);
 
   sensors.begin();  // Start up the library
 
@@ -51,42 +56,71 @@ void setup() {
   Serial.println(" devices.");
   Serial.println();
 
+  if (deviceCount == 2) {
+    rgb(0,0,255);
+  }
+
   wifiSetup();
+
+  if (status != WL_IDLE_STATUS) {
+    rgb(0,255,0);
+    delay(250);
+  } else {
+    rgb(255,0,0);
+    delay(250);
+  }
 }
 
-float indoorTemp = -100;
-float outdoorTemp = -100;
+float indoorTemp = 150; // Max temp for DS18B20: ~ +125°
+float outdoorTemp = 150;
 
 void loop() {
-  
-  digitalWrite(BLUELED, HIGH);
+  readTemperatures();
+  printTemperatures();
 
+  // Check for anomalies
+  if (-56 < indoorTemp < 126 && -56 < outdoorTemp < 126) {
+    sendReadings();
+  } else {
+    rgb(255,0,0);
+    Serial.println("Reading error, temperature readings not sent!");
+  }
+
+  delay(250);
+  rgb(0,0,0);
+
+  delay(DELAY);
+
+}
+
+void readTemperatures() {
   // Send command to all the sensors for temperature conversion
   sensors.requestTemperatures();
-
-  Serial.println();
-
-  Serial.print("Indoor : ");
+  // Update temperature readings
   indoorTemp = sensors.getTempCByIndex(1);
+  outdoorTemp = sensors.getTempCByIndex(0);
+}
+
+void printTemperatures() {
+  // Print temperatures
+  Serial.println();
+  Serial.print("Indoor : ");
   Serial.print(indoorTemp);
   Serial.print("°C");
-
   Serial.println();
-
   Serial.print("Outdoor : ");
-  outdoorTemp = sensors.getTempCByIndex(0);
   Serial.print(outdoorTemp);
   Serial.print("°C");
-
   Serial.println();
-
   Serial.println("----------------------");
+}
 
 
+void sendReadings() {
   Serial.println("\nStarting connection to server...");
   // if you get a connection, report back via serial:
-
-  if (client.connect(server, 8080)) {
+  rgb(0,0,255);
+  if (client.connect(server, port)) {
     Serial.println("Connected to server!");
 
     // Make a HTTP request:
@@ -95,17 +129,30 @@ void loop() {
     str += "&outdoorTemp=";
     str += String(outdoorTemp);
     str += " HTTP/1.1";
-
     client.println(str);
-    client.println("Host: 192.168.50.179:8080");
+    str = "Host: ";
+    str += fullAddress;
+    client.println(str);
     client.println("Connection: close");
     client.println();
 
+   Serial.println("Data sent!");
+   Serial.println("Connection closed!");
+   rgb(0,255,0);
+
+  } else {
+    Serial.println("Unable to connect to server!");
+    rgb(255,255,0);
   }
-  
-  delay(10000);
 
 }
+
+void rgb(int r, int g, int b) {
+  analogWrite(R, r);
+  analogWrite(G, g);
+  analogWrite(B, b);
+}
+
 
 void wifiSetup() {
   // Check for the presence of the shield
@@ -118,7 +165,8 @@ void wifiSetup() {
   // attempt to connect to Wifi network:
   while ( status != WL_CONNECTED) {
     Serial.print("Attempting to connect to Network named: ");
-    Serial.println(ssid);                   // print the network name (SSID);
+    Serial.print(ssid);                   // print the network name (SSID);
+    Serial.println(" ...");
     // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
     status = WiFi.begin(ssid, pass);
     // wait 10 seconds for connection:
@@ -128,13 +176,11 @@ void wifiSetup() {
 }
 
 void printWifiStatus() {
-
   // print the SSID of the network you're attached to:
   Serial.print("SSID: ");
   Serial.println(WiFi.SSID());
 
   // print your WiFi shield's IP address:
-
   IPAddress ip = WiFi.localIP();
   Serial.print("IP Address: ");
   Serial.println(ip);
@@ -145,3 +191,7 @@ void printWifiStatus() {
   Serial.print(rssi);
   Serial.println(" dBm");
 }
+
+
+
+

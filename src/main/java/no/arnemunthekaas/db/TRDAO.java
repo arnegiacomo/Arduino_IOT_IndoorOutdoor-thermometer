@@ -35,13 +35,13 @@ public class TRDAO {
     /**
      * Gets most recent temperature reading
      *
-     * @return Last temperature reading
+     * @return All readings
      */
-    public TemperatureReading selectTemperatureReading() {
+    public List<TemperatureReading>  selectTemperatureReading() {
         String queryString = "SELECT t FROM TemperatureReading t ";
         EntityManager em = emf.createEntityManager();
 
-        List<TemperatureReading> trs = null;
+        List<TemperatureReading> trs;
         try {
             TypedQuery<TemperatureReading> query = em.createQuery(queryString, TemperatureReading.class);
             trs = query.getResultList();
@@ -50,7 +50,7 @@ public class TRDAO {
             em.close();
         }
 
-        return trs.get(trs.size()-1);
+        return trs;
     }
 
     /**
@@ -74,6 +74,4 @@ public class TRDAO {
             em.close();
         }
     }
-
-
 }

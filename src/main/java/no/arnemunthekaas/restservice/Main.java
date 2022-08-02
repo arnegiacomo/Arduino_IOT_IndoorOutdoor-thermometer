@@ -6,6 +6,7 @@ import no.arnemunthekaas.db.TemperatureReading;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.List;
 
 import static spark.Spark.get;
 import static spark.Spark.port;
@@ -30,27 +31,27 @@ public class Main {
             Gson gson = new Gson();
             String id = req.queryParams("id");
 
-            TemperatureReading tr = temperatureReadingDAO.selectTemperatureReading(Integer.parseInt(id));
+            if (id != null) {
+                try {
+                    TemperatureReading tr = temperatureReadingDAO.selectTemperatureReading(Integer.parseInt(id));
 
-            String str = gson.toJson(tr);
+                    String str = gson.toJson(tr);
+                    System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully retrieved item : " + id);
+                    return str;
+                } catch (Exception e) {
+                    System.out.println("Invalid ID provided.");
+                    e.printStackTrace();
+                }
+            } else {
+                List<TemperatureReading> trs = temperatureReadingDAO.selectTemperatureReading();
 
-            System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully retrieved item : " + id);
+                String str = gson.toJson(trs);
+                System.out.println(Timestamp.from(Instant.now()) + "\nSuccessfully retrieved all items.");
 
-            return str;
-        });
+                return str;
+            }
 
-        // Get most recent temperature reading
-        get("/temperaturelogger/", (req, res) -> {
-
-            Gson gson = new Gson();
-
-            TemperatureReading tr = temperatureReadingDAO.selectTemperatureReading();
-
-            String str = gson.toJson(tr);
-
-            System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully retrieved item : " + tr.getID());
-
-            return str;
+            return null;
         });
 
         // Submit a temperature reading

@@ -1,6 +1,5 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include <SPI.h>
 #include <WiFi101.h>
 #include <WiFiClient.h>
 

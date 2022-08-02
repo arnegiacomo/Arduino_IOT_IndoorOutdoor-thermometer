@@ -119,7 +119,7 @@ void printTemperatures() {
 void sendReadings() {
   Serial.println("\nStarting connection to server...");
   // if you get a connection, report back via serial:
-  rgb(0,0,255);
+  rgb(0,0,50);
   if (client.connect(server, port)) {
     Serial.println("Connected to server!");
 
@@ -138,7 +138,7 @@ void sendReadings() {
 
    Serial.println("Data sent!");
    Serial.println("Connection closed!");
-   rgb(0,255,0);
+   rgb(0,50,0);
 
   } else {
     Serial.println("Unable to connect to server!");

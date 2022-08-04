@@ -23,4 +23,4 @@ local PostgreSQL database.  First step in creating a smarter home!
 }
 ```
 ### Arduino schematic
-*~WIP~*
+*WIP*

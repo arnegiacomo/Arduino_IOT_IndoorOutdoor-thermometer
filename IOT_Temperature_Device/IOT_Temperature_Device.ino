@@ -43,9 +43,9 @@ void setup() {
 
   Serial.begin(9600);
 
-  while (!Serial) {
-    ; // wait for serial port to connect.
-  }
+  //while (!Serial) {       // Uncomment these lines when debugging via serial
+  //  ; // wait for serial port to connect.
+  //}
 
   // locate devices on the bus
   Serial.println("Locating temperature sensors...");
@@ -103,6 +103,7 @@ void readTemperatures() {
 void printTemperatures() {
   // Print temperatures
   Serial.println();
+  Serial.println("----------------------");
   Serial.print("Indoor : ");
   Serial.print(indoorTemp);
   Serial.print("°C");
@@ -141,7 +142,7 @@ void sendReadings() {
 
   } else {
     Serial.println("Unable to connect to server!");
-    rgb(255,255,0);
+    rgb(255,0,0);
   }
 
 }

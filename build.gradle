@@ -14,3 +14,16 @@ dependencies {
     implementation 'javax.persistence:javax.persistence-api:2.2'
     implementation 'org.postgresql:postgresql:42.3.3'
 }
+
+jar {
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes "Main-Class": "no.arnemunthekaas.restservice.Main"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

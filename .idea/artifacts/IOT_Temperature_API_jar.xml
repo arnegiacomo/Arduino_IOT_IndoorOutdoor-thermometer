@@ -1,0 +1,36 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="IOT_Temperature_API:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/IOT_Temperature_API_jar</output-path>
+    <root id="archive" name="IOT_Temperature_API.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="IOT_Temperature_API.main" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-http/9.4.48.v20220622/8cb235e70bda0c5e97a41e7ee0ea33ee7f5bcc6a/jetty-http-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.websocket/websocket-api/9.4.48.v20220622/76523923d4a5efabe05c2a7aa120282ac1db8c79/websocket-api-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.servlet/javax.servlet-api/3.1.0/3cd63d075497751784b2fa84be59432f4905bf7c/javax.servlet-api-3.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/3.5.0/2f50520c8abea66fbd8d26e481d3aef5c673b510/checker-qual-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.persistence/javax.persistence/2.1.0/5bab675816dbe0f64bb86004b108bf2a00292358/javax.persistence-2.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.9.1/2cc2131b98ebfb04e2b2c7dfb84431f4045096b/gson-2.9.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.persistence/eclipselink/2.5.1/13bdbd486b15c1c7fd2d8392fe5d62d5a5ac10d6/eclipselink-2.5.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sparkjava/spark-core/2.9.4/98117708e6ac42f2be3d2948b2193be6b0258c62/spark-core-2.9.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.websocket/websocket-common/9.4.48.v20220622/3953122cd495f64ff72831e889a5a661631f580/websocket-common-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-servlet/9.4.48.v20220622/8a9a53e0aad3f194a4cc9940f7e9d5619254bf62/jetty-servlet-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-io/9.4.48.v20220622/b09b55209d0a304e542f779750a01f6914dc55e7/jetty-io-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.postgresql/postgresql/42.3.3/6f639af368afda4c5a3e77a6299262c501e67076/postgresql-42.3.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.websocket/websocket-client/9.4.48.v20220622/e5536fc714ab049505f99ad799a831f7be36bbf0/websocket-client-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-webapp/9.4.48.v20220622/9317a8518674c54b5ed9ec5ece8fcad92af91802/jetty-webapp-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-util-ajax/9.4.48.v20220622/def39454993d094df10b1689592d235e636d7dde/jetty-util-ajax-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-util/9.4.48.v20220622/7efc06f7ec0ff33d8c219bcc8c7415280c103669/jetty-util-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/da76ca59f6a57ee3102f8f9bd9cee742973efa8a/slf4j-api-1.7.25.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-server/9.4.48.v20220622/b91a0641cda31c93962503b88f783602d2bd8093/jetty-server-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-xml/9.4.48.v20220622/2c8b7ad6b64437a693cd30666f3def666aac8207/jetty-xml-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.websocket/websocket-servlet/9.4.48.v20220622/6216200152965667066df70b65698e3a063e383d/websocket-servlet-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.websocket/websocket-server/9.4.48.v20220622/317d5fcb9f4a11265201546a0f55a0c2f4b1dd5c/websocket-server-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.persistence/commonj.sdo/2.1.1/90d4c89ce0a69f58619f1a247bbf420122139ff5/commonj.sdo-2.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-security/9.4.48.v20220622/6114f92529e9cff489528e6be77b48526a92d577/jetty-security-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-client/9.4.48.v20220622/fc2e953a7030045e1ca467d57e200856a170848e/jetty-client-9.4.48.v20220622.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.persistence/javax.persistence-api/2.2/25665ac8c0b62f50e6488173233239120fc52c96/javax.persistence-api-2.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

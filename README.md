@@ -3,7 +3,7 @@
 [DS18B20](https://www.kjell.com/globalassets/mediaassets/745057_87081_manual_en.pdf?ref=C2D11F00F2)
 temperature sensors, and [Spark](https://github.com/perwendel/spark) based REST API running on a 
 [Raspberry Pi 4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) that records the data into a
-local PostgreSQL database.  First step in creating a smarter home!
+local PostgreSQL database. My first step in creating a smarter home!
 
 ### Progress
 - [x] IOT device

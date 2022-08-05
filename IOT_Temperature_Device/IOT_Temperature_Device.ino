@@ -14,12 +14,13 @@ DallasTemperature sensors(&oneWire);
 
 int deviceCount = 0;// Amount of temperature sensors
 
-const int DELAY = 60000; // how long to wait for each iteration of loop()
-
 // LED pins
 const int G = 0;
 const int B = 1;
 const int R = 2;
+
+// Reset pin
+const int RESETPIN = 7;
 
 // WiFi router setup
 char ssid[] = ""; // network SSID (aka WiFi name)
@@ -27,28 +28,41 @@ char pass[] = ""; // network password
 int status = WL_IDLE_STATUS;
 
 String fullAddress = ""; // ip and port
-IPAddress server();      // ip seperated by ","
+IPAddress server(000, 000, 00, 000);        // ip seperated by ","
 const int port = ;
 WiFiClient client;
 
 void setup() {
+
+  // ------- Debug --------
+
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect.
+  }
+
+  Serial.println("IOT-Indoor and Outdoor thermometer startup...");
+  Serial.println();
+
+  // Setup reset pin
+
+  digitalWrite(RESETPIN, HIGH);
+  delay(200);
+  pinMode(RESETPIN, OUTPUT);
+
+  // -----------------------
+
   // RGB LED
   pinMode(G, OUTPUT);
   pinMode(R, OUTPUT);
   pinMode(B, OUTPUT);
 
-  rgb(255,0,0);
+  rgb(255, 0, 0);
 
   sensors.begin();  // Start up the library
 
-  Serial.begin(9600);
-
-  //while (!Serial) {       // Uncomment these lines when debugging via serial
-  //  ; // wait for serial port to connect.
-  //}
-
   // locate devices on the bus
-  Serial.println("Locating temperature sensors...");
+  Serial.println("Locating temperature sensors ...");
   Serial.print("Found ");
   deviceCount = sensors.getDeviceCount();
   Serial.print(deviceCount, DEC);
@@ -56,22 +70,27 @@ void setup() {
   Serial.println();
 
   if (deviceCount == 2) {
-    rgb(0,0,255);
+    rgb(0, 0, 255);
   }
 
   wifiSetup();
 
   if (status != WL_IDLE_STATUS) {
-    rgb(0,255,0);
+    rgb(0, 255, 0);
     delay(250);
   } else {
-    rgb(255,0,0);
+    rgb(255, 0, 0);
     delay(250);
   }
 }
 
 float indoorTemp = 150; // Max temp for DS18B20: ~ +125°
 float outdoorTemp = 150;
+const int DELAY = 5 * 6 * 1000; // How often to send temperature readings in ms (default: every 5 min)
+unsigned long waitCounter = 0;
+int resetCounter = 0;
+const int resetInterval = 360;  // How often to reset (reconnects to internet, rediscovers sensors) (every 6 hrs)
+
 
 void loop() {
   readTemperatures();
@@ -81,14 +100,25 @@ void loop() {
   if (-56 < indoorTemp < 126 && -56 < outdoorTemp < 126) {
     sendReadings();
   } else {
-    rgb(255,0,0);
+    rgb(255, 0, 0);
     Serial.println("Reading error, temperature readings not sent!");
   }
 
-  delay(250);
-  rgb(0,0,0);
+  delay(500);
+  rgb(0, 0, 0);
 
-  delay(DELAY);
+  while (waitCounter < DELAY) {
+    waitCounter += millis();
+    waitCounter = waitCounter % DELAY;
+    delay(1000); // No point checking all the time, updates every second to see if DELAY has passed
+  }
+
+  waitCounter = 0;
+  resetCounter++;
+  if (resetCounter = resetInterval) {
+    Serial.println("Reset imminent...");
+    digitalWrite(RESETPIN, LOW);
+  }
 
 }
 
@@ -117,9 +147,9 @@ void printTemperatures() {
 
 
 void sendReadings() {
-  Serial.println("\nStarting connection to server...");
+  Serial.println("\nStarting connection to server ...");
   // if you get a connection, report back via serial:
-  rgb(0,0,50);
+  rgb(0, 0, 50);
   if (client.connect(server, port)) {
     Serial.println("Connected to server!");
 
@@ -136,13 +166,13 @@ void sendReadings() {
     client.println("Connection: close");
     client.println();
 
-   Serial.println("Data sent!");
-   Serial.println("Connection closed!");
-   rgb(0,50,0);
+    Serial.println("Data sent!");
+    Serial.println("Connection closed!");
+    rgb(0, 50, 0);
 
   } else {
     Serial.println("Unable to connect to server!");
-    rgb(255,0,0);
+    rgb(255, 0, 0);
   }
 
 }

@@ -37,9 +37,9 @@ void setup() {
   // ------- Debug --------
 
   Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect.
-  }
+  //while (!Serial) {
+  //  ; // wait for serial port to connect.
+  //}
 
   Serial.println("IOT - Indoor and Outdoor thermometer startup ...");
   Serial.println();

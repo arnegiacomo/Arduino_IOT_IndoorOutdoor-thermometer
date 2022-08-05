@@ -110,12 +110,13 @@ void loop() {
   while (waitCounter < DELAY) {
     waitCounter += millis();
     waitCounter = waitCounter % DELAY;
+    break;
     delay(1000); // No point checking all the time, updates every second to see if DELAY has passed
   }
 
   waitCounter = 0;
   resetCounter++;
-  if (resetCounter = resetInterval) {
+  if (resetCounter >= resetInterval) {
     Serial.println("Reset imminent...");
     digitalWrite(RESETPIN, LOW);
   }

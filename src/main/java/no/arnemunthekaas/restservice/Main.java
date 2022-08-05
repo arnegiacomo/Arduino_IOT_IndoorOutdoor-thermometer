@@ -25,6 +25,16 @@ public class Main {
 
         TRDAO temperatureReadingDAO = new TRDAO();
 
+        // Get most recent temperature
+        get("/temperaturelogger/status/", (req, res) -> {
+
+            Gson gson = new Gson();
+            String str = gson.toJson(temperatureReadingDAO.selectMostRecentTemperatureReading());
+            System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully retrieved most recent reading.");
+            return str;
+
+        });
+
         // Get a temperature reading given an ID
         get("/temperaturelogger/log/", (req, res) -> {
 
@@ -36,7 +46,7 @@ public class Main {
                     TemperatureReading tr = temperatureReadingDAO.selectTemperatureReading(Integer.parseInt(id));
 
                     String str = gson.toJson(tr);
-                    System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully retrieved item : " + id);
+                    System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully retrieved reading : " + id);
                     return str;
                 } catch (Exception e) {
                     System.out.println("Invalid ID provided.");
@@ -46,7 +56,7 @@ public class Main {
                 List<TemperatureReading> trs = temperatureReadingDAO.selectTemperatureReading();
 
                 String str = gson.toJson(trs);
-                System.out.println(Timestamp.from(Instant.now()) + "\nSuccessfully retrieved all items.");
+                System.out.println(Timestamp.from(Instant.now()) + "\nSuccessfully retrieved all readings.");
 
                 return str;
             }
@@ -68,7 +78,7 @@ public class Main {
             String str = gson.toJson(tr);
 
             if (temperatureReadingDAO.selectTemperatureReading(tr.getID()) != null) {
-                System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully added item : " + tr.getID());
+                System.out.println(Timestamp.from(Instant.now()) + " : " + str + "\nSuccessfully added reading : " + tr.getID());
             }
 
             return str + " \nHas been succsessfully added to the database!";

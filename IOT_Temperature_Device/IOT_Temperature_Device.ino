@@ -108,7 +108,7 @@ void loop() {
   delay(DELAY);
 
   resetCounter++;
-  if (resetCounter >= resetInte) {
+  if (resetCounter >= resetInterval) {
     reset();
   }
 

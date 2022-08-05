@@ -29,19 +29,19 @@ int status = WL_IDLE_STATUS;
 
 String fullAddress = ""; // ip and port
 IPAddress server(000, 000, 00, 000);        // ip seperated by ","
-const int port = ;
+const int port = 8080;
 WiFiClient client;
 
 void setup() {
 
   // ------- Debug --------
 
-  //Serial.begin(9600);
-  //while (!Serial) {
-  //  ; // wait for serial port to connect.
-  //}
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect.
+  }
 
-  Serial.println("IOT-Indoor and Outdoor thermometer startup...");
+  Serial.println("IOT - Indoor and Outdoor thermometer startup ...");
   Serial.println();
 
   // Setup reset pin
@@ -86,11 +86,9 @@ void setup() {
 
 float indoorTemp = 150; // Max temp for DS18B20: ~ +125°
 float outdoorTemp = 150;
-const int DELAY = 5 * 6 * 1000; // How often to send temperature readings in ms (default: every 5 min)
-unsigned long waitCounter = 0;
+const int DELAY = 5 * 60 * 1000; // How often to wait between temperature readings in ms (default: every 5 min)
 int resetCounter = 0;
-const int resetInterval = 360;  // How often to reset (reconnects to internet, rediscovers sensors) (every 6 hrs)
-
+const int resetInterval = 360;  // How often to reset (reconnects to internet, rediscovers sensors) (every 360 readings ~ 6 hrs)
 
 void loop() {
   readTemperatures();
@@ -107,22 +105,21 @@ void loop() {
   delay(500);
   rgb(0, 0, 0);
 
-  while (waitCounter < DELAY) {
-    waitCounter += millis();
-    waitCounter = waitCounter % DELAY;
-    if (waitCounter >= DELAY) {
-      break;
-    }
-    delay(1000); // No point checking all the time, updates every second to see if DELAY has passed
-  }
+  delay(DELAY);
 
-  waitCounter = 0;
   resetCounter++;
-  if (resetCounter >= resetInterval) {
-    Serial.println("Reset imminent...");
-    digitalWrite(RESETPIN, LOW);
+  if (resetCounter >= 3) {
+    reset();
   }
 
+}
+
+void reset() {
+  Serial.println();
+  Serial.println("Reset imminent...");
+  Serial.println("~~~~~~~~~~~~~~~~~~");
+  Serial.println();
+  digitalWrite(RESETPIN, LOW);
 }
 
 void readTemperatures() {

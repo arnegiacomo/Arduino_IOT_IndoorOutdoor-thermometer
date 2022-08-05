@@ -2,3 +2,6 @@
 /.gradle/
 /build/
 /build/classes/java/main/
+/out/artifacts/IOT_Temperature_API_jar/IOT_Temperature_API.jar
+/out/artifacts/IOT_Temperature_API_jar/META-INF/persistence.xml
+/out/production/resources/META-INF/persistence.xml

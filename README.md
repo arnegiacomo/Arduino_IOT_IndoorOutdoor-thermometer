@@ -1,4 +1,6 @@
 # Arduino IOT indoor and outdoor thermometer using REST API
+**ABANDONED SEE https://github.com/h593267/Arduino_Smarthome**
+
 [Arduino MKR 1000 WiFi](https://docs.arduino.cc/hardware/mkr-1000-wifi) based IOT device with indoor and outdoor 
 [DS18B20](https://www.kjell.com/globalassets/mediaassets/745057_87081_manual_en.pdf?ref=C2D11F00F2)
 temperature sensors, and [Spark](https://github.com/perwendel/spark) based REST API-server 
